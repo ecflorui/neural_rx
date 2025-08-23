@@ -1,0 +1,3 @@
+C:/Users/singh/neural_reciever/build/CMakeFiles/trt_receiver.dir
+C:/Users/singh/neural_reciever/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/singh/neural_reciever/build/CMakeFiles/ZERO_CHECK.dir

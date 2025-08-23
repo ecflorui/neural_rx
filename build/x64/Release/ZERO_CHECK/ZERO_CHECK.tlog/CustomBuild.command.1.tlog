@@ -1,0 +1,10 @@
+^C:\USERS\SINGH\NEURAL_RECIEVER\BUILD\CMAKEFILES\891077983F3A690E129A78CD40C7E7E4\GENERATE.STAMP.RULE
+setlocal
+C:\Users\singh\cmake-4.1.0-windows-x86_64\bin\cmake.exe -SC:/Users/singh/neural_reciever -BC:/Users/singh/neural_reciever/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/singh/neural_reciever/build/TRTReceiver.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

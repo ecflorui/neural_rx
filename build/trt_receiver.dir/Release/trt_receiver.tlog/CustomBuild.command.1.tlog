@@ -1,0 +1,26 @@
+^C:\USERS\SINGH\NEURAL_RECIEVER\RUNTIME\DATA_PROCESSING.CU
+setlocal
+cd C:\Users\singh\neural_reciever\build\CMakeFiles\trt_receiver.dir\runtime
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Users\singh\cmake-4.1.0-windows-x86_64\bin\cmake.exe -E make_directory C:/Users/singh/neural_reciever/build/CMakeFiles/trt_receiver.dir/runtime/Release
+if %errorlevel% neq 0 goto :cmEnd
+C:\Users\singh\cmake-4.1.0-windows-x86_64\bin\cmake.exe -D verbose:BOOL=OFF -D "CCBIN:PATH=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools/MSVC/14.44.35207/bin/Hostx64/x64" -D build_configuration:STRING=Release -D generated_file:STRING=C:/Users/singh/neural_reciever/build/CMakeFiles/trt_receiver.dir/runtime/Release/trt_receiver_generated_data_processing.cu.obj -D generated_cubin_file:STRING=C:/Users/singh/neural_reciever/build/CMakeFiles/trt_receiver.dir/runtime/Release/trt_receiver_generated_data_processing.cu.obj.cubin.txt -P C:/Users/singh/neural_reciever/build/CMakeFiles/trt_receiver.dir/runtime/trt_receiver_generated_data_processing.cu.obj.Release.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\SINGH\NEURAL_RECIEVER\CMAKELISTS.TXT
+setlocal
+C:\Users\singh\cmake-4.1.0-windows-x86_64\bin\cmake.exe -SC:/Users/singh/neural_reciever -BC:/Users/singh/neural_reciever/build --check-stamp-file C:/Users/singh/neural_reciever/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
