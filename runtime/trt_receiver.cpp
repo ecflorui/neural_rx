@@ -6,6 +6,8 @@
 #include <cstdio>
 #include <unistd.h>
 #include <time.h>
+#include <iostream>
+#include <cuda_runtime.h>
 
 using namespace nvinfer1;
 
@@ -21,6 +23,35 @@ static uint32_t const MAX_BATCH_SIZE = 512;
 #define PERSISTENT_DEVICE_MEMORY
 #define USE_UNIFIED_MEMORY
 #define USE_GRAPHS
+
+int main() {
+    int batch_size = 1;
+    int num_rx_ant = 2;
+    int num_symbols = 14;
+    int num_subcarriers = 72;
+
+    size_t in_size = batch_size * num_rx_ant * num_symbols * num_subcarriers;
+    size_t out_size = batch_size * num_symbols * num_subcarriers * num_rx_ant * 2;
+
+    cuComplex* d_in;
+    __half* d_out;
+
+    cudaMalloc(&d_in, in_size * sizeof(cuComplex));
+    cudaMalloc(&d_out, out_size * sizeof(__half));
+
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    preprocess_grid_kernel(d_in, d_out, batch_size, num_rx_ant, num_symbols, num_subcarriers, stream);
+    cudaStreamSynchronize(stream);
+
+    cudaFree(d_in);
+    cudaFree(d_out);
+    cudaStreamDestroy(stream);
+
+    std::cout << "✅ Preprocess kernel ran successfully!" << std::endl;
+    return 0;
+}
 
 struct TRTContext {
     cudaStream_t default_stream = 0;
