@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.18)
+project(TRTReceiver LANGUAGES CXX CUDA)
+
+# Require C++17 and CUDA 11+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find CUDA
+find_package(CUDAToolkit REQUIRED)
+
+# Find TensorRT (installed system-wide, usually in /usr/lib/x86_64-linux-gnu)
+find_path(TENSORRT_INCLUDE_DIR NvInfer.h
+    PATHS /usr/include /usr/include/x86_64-linux-gnu
+)
+find_library(TENSORRT_LIB nvinfer
+    PATHS /usr/lib /usr/lib/x86_64-linux-gnu
+)
+find_library(TENSORRT_LIB_PLUGIN nvinfer_plugin
+    PATHS /usr/lib /usr/lib/x86_64-linux-gnu
+)
+
+if(NOT TENSORRT_INCLUDE_DIR OR NOT TENSORRT_LIB)
+    message(FATAL_ERROR "TensorRT not found. Please install TensorRT dev package.")
+endif()
+
+include_directories(${TENSORRT_INCLUDE_DIR} runtime)
+
+# Build shared library from your sources
+add_library(trt_receiver SHARED
+    runtime/trt_receiver.cpp
+    runtime/data_processing.cu
+)
+
+# Link against CUDA and TensorRT
+target_link_libraries(trt_receiver
+    PRIVATE CUDA::cudart
+    PRIVATE ${TENSORRT_LIB}
+    PRIVATE ${TENSORRT_LIB_PLUGIN}
+)
